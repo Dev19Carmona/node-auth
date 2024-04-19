@@ -1,4 +1,4 @@
-import mongoose from 'mongoose'
+import mongoose, { Schema } from 'mongoose'
 const collectionName = 'User'
 const schema = new mongoose.Schema(
   {
@@ -18,6 +18,7 @@ const schema = new mongoose.Schema(
       default: ['USER_ROLE'],
       enum: ['USER_ROLE', 'ADMIN_ROLE'],
     },
+    
   },
   {
     timestamps: true,

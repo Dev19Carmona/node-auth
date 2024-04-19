@@ -1,12 +1,12 @@
 import { Request, Response } from 'express'
-import { CreateUserDto, LoginUserDto } from '../../domain/dtos'
+import { CreatePetDto, CreateUserDto, LoginUserDto } from '../../domain/dtos'
 import { AuthRepository } from '../../domain/repositories'
 import { CustomError } from '../../domain/errors'
 import { JwtAdapter } from '../../config'
 import { UserModel } from '../../data/mongodb'
 import { LoginUser, RegisterUser } from '../../domain/use-cases'
 
-export class AuthController {
+export class PetController {
   constructor(private readonly authReporitory: AuthRepository) {}
   private handleError = (error: unknown, res: Response) => {
     if (error instanceof CustomError) {
@@ -14,8 +14,8 @@ export class AuthController {
     }
     return res.status(500).json({ error: '¡Internal Server Error!' })
   }
-  registerUser = (req: Request, res: Response) => {
-    const [error, createUserDto] = CreateUserDto.create(req.body)
+  registerPet = (req: Request, res: Response) => {
+    const [error, createPetDto] = CreatePetDto.create(req.body)
     if (error) return res.status(404).json({ error })
     const registerUserUseCase = new RegisterUser(this.authReporitory)
     registerUserUseCase
@@ -23,16 +23,7 @@ export class AuthController {
       .then((userToken) => res.json(userToken))
       .catch((err) => this.handleError(err, res))
   }
-  loginUser = (req: Request, res: Response) => {
-    const [error, userSessionDto] = LoginUserDto.create(req.body)
-    if (error) return res.status(404).json({ error })
-    const loginUserUseCase = new LoginUser(this.authReporitory)
-    loginUserUseCase
-      .execute(userSessionDto!)
-      .then((session) => res.json(session))
-      .catch((err) => this.handleError(err, res))
-  }
-  getUsers = (req: Request, res: Response) => {
+  getMyPets = (req: Request, res: Response) => {
     UserModel.find()
       .then((users) =>
         res.json({
