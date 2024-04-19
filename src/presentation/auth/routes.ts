@@ -6,7 +6,6 @@ import { AuthMiddleware } from '../middlewares/auth.middleware'
 export class AuthRoutes {
   static get routes(): Router {
     const datasource = new MongoAuthDataSourceImpl()
-    console.log(datasource);
     
     const authRepository = new AuthRepositoryImpl(datasource)
     const controller = new AuthController(authRepository)

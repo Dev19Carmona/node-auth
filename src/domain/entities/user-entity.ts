@@ -3,7 +3,7 @@ export class UserEntity {
     public id: any ,
     public name: string,
     public email: string,
-    public password: string,
+    // public password: string,
     public role: string[],
     public img: string,
   ) {
