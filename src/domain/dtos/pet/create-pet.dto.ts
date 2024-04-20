@@ -1,3 +1,5 @@
+import { GenderAvailableEnum, PetsAvailableEnum } from "../../../data/enums"
+
 export class CreatePetDto {
   private constructor(
     public name: string,
@@ -13,13 +15,16 @@ export class CreatePetDto {
   ) {}
   static create(object: { [key: string]: any }): [string?, CreatePetDto?] {
     const { name, description, age, reference, specie, gender, weight, img, medicalHistory, user } = object
-    const enumGenders= ["MALE", "FEMALE"]
+    const upperGender = gender.toUpperCase()
+    const upperSpecie = specie.toUpperCase()
+    
     if (!name) return ['Name is Required']
     if (!age) return ['age is Required']
     if (!specie) return ['specie is Required']
     if (!gender) return ['gender is Required']
-    if (!enumGenders.includes(gender)) return ['gender is Required']
+    if (!GenderAvailableEnum.includes(upperGender)) return ['gender is Required']
+    if (!PetsAvailableEnum.includes(upperSpecie)) return ['gender is Required']
     if (!user) return ['user is Required']
-    return [undefined, new CreatePetDto(name, description, age, reference, specie, gender, weight, img, medicalHistory, user)]
+    return [undefined, new CreatePetDto(name, description, age, reference, upperSpecie, upperGender, weight, img, medicalHistory, user.id)]
   }
 }

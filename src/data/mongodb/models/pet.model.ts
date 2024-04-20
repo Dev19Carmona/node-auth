@@ -11,7 +11,7 @@ const schema = new mongoose.Schema(
     weight: { type: Number },
     img: { type: String, default: 'no-image' },
     medicalHistory: { type: String },
-    owner: { type: [Schema.Types.ObjectId], ref: 'User', required: true },
+    owner: { type: Schema.Types.ObjectId, ref: 'User', required: true },
   },
   {
     timestamps: true,

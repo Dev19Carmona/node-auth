@@ -1,17 +1,19 @@
 import { Router } from 'express'
-import { AuthController } from './controller'
-import { MongoAuthDataSourceImpl, AuthRepositoryImpl } from '../../infrastructure'
+import { PetController } from './controller'
 import { AuthMiddleware } from '../middlewares/auth.middleware'
+import { MongoPetDataSourceImpl } from '../../infrastructure/datasources/mongo'
+import { PetRepositoryImpl } from '../../infrastructure/repositories/mongo'
 
-export class AuthRoutes {
+export class PetRoutes {
   static get routes(): Router {
-    const datasource = new MongoAuthDataSourceImpl()
+    const datasource = new MongoPetDataSourceImpl()
     
-    const authRepository = new AuthRepositoryImpl(datasource)
-    const controller = new AuthController(authRepository)
+    const petRepository = new PetRepositoryImpl(datasource)
+    const controller = new PetController(petRepository)
     const router = Router()
-    router.get('/my-pets', controller.loginUser)
-    router.post('/register-pet', controller.registerUser)
+    router.use(AuthMiddleware.validateJwt)
+    router.get('/my-pets', controller.getMyPets)
+    router.post('/register', controller.registerPet)
     return router
   }
 }
