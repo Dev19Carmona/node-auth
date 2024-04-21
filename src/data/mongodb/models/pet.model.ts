@@ -1,4 +1,5 @@
 import mongoose, { Schema } from 'mongoose'
+import { GenderAvailableEnum, PetsAvailableEnum } from '../../enums'
 const collectionName = 'Pet'
 const schema = new mongoose.Schema(
   {
@@ -6,8 +7,8 @@ const schema = new mongoose.Schema(
     description: { type: String },
     age: { type: Number, required: true },
     reference: { type: String },
-    specie: { type: String, required: true },
-    gender: { type: String, enum: ['MALE', 'FEMALE'], required: true },
+    specie: { type: String, required: true, enum: PetsAvailableEnum },
+    gender: { type: String, enum: GenderAvailableEnum, required: true },
     weight: { type: Number },
     img: { type: String, default: 'no-image' },
     medicalHistory: { type: String },
