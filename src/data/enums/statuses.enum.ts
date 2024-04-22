@@ -1,0 +1,1 @@
+export const AppointmentStatusEnum = ['PENDING', 'CONFIRMED', 'CANCELLED']

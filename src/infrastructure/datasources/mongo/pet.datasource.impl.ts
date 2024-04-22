@@ -14,14 +14,16 @@ export class MongoPetDataSourceImpl implements PetDataSource {
   }
   async register(createPetDto: CreatePetDto): Promise<PetEntity> {
     try {
+      const { name, owner, specie } = createPetDto
+      const existingPet = await PetModel.countDocuments({ owner, name, specie })
+      if (existingPet)
+        throw CustomError.badRequest(`Pet with name: ${name} already exist`)
       const newPet = await new PetModel({
         ...createPetDto,
       }).save()
 
       return PetMapper.petEntityFromObject(newPet)
     } catch (error) {
-      console.log({ error })
-
       if (error instanceof CustomError) {
         throw error
       }

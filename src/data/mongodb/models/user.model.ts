@@ -1,4 +1,5 @@
 import mongoose, { Schema } from 'mongoose'
+import { RolesEnum } from '../../enums'
 const collectionName = 'User'
 const schema = new mongoose.Schema(
   {
@@ -16,7 +17,7 @@ const schema = new mongoose.Schema(
     roles: {
       type: [String],
       default: ['USER_ROLE'],
-      enum: ['USER_ROLE', 'ADMIN_ROLE'],
+      enum: RolesEnum,
     },
     
   },

@@ -1,2 +1,5 @@
 export * from './pet-available.enum'
 export * from './gender-available.enum'
+export * from './date-available.enum'
+export * from './statuses.enum'
+export * from './role.enum'
