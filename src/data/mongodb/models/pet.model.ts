@@ -1,5 +1,10 @@
 import mongoose, { Schema } from 'mongoose'
-import { GenderAvailableEnum, PetsAvailableEnum } from '../../enums'
+import {
+  CatBreeds,
+  DogBreeds,
+  GenderAvailableEnum,
+  PetsAvailableEnum,
+} from '../../enums'
 const collectionName = 'Pet'
 const schema = new mongoose.Schema(
   {
@@ -9,6 +14,7 @@ const schema = new mongoose.Schema(
     reference: { type: String },
     specie: { type: String, required: true, enum: PetsAvailableEnum },
     gender: { type: String, enum: GenderAvailableEnum, required: true },
+    breed: { type: String, enum: [...DogBreeds, ...CatBreeds] },
     weight: { type: Number },
     img: { type: String, default: 'no-image' },
     medicalHistory: { type: String },

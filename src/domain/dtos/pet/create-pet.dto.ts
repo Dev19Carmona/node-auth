@@ -1,4 +1,4 @@
-import { GenderAvailableEnum, PetsAvailableEnum } from "../../../data/enums"
+import { CatBreeds, DogBreeds, GenderAvailableEnum, PetsAvailableEnum } from "../../../data/enums"
 
 export class CreatePetDto {
   private constructor(
@@ -8,16 +8,22 @@ export class CreatePetDto {
     public reference: string,
     public specie: string,
     public gender: string,
+    public breed: string,
     public weight: number,
     public img: string,
     public medicalHistory: string,
     public owner: string,
   ) {}
   static create(object: { [key: string]: any }): [string?, CreatePetDto?] {
-    const { name, description, age, reference, specie, gender, weight, img, medicalHistory, user } = object
-    const upperGender = gender.toUpperCase()
-    const upperSpecie = specie.toUpperCase()
+    const { name, description, age, reference, specie, gender,breed, weight, img, medicalHistory, user } = object
+    const upperGender = gender ? gender.toUpperCase() : undefined
+    const upperSpecie = specie ? specie.toUpperCase() : undefined
+    const upperBreed = breed ? breed.toUpperCase() : undefined
     
+    if(['GATO', 'PERRO'].includes(specie)) {
+      if(!breed)return['Breed is required']
+      if(![...CatBreeds, ...DogBreeds].includes(upperBreed))return['Invalid Breed']
+    }
     if (!name) return ['Name is Required']
     if (!age) return ['age is Required']
     if (!specie) return ['specie is Required']
@@ -25,6 +31,6 @@ export class CreatePetDto {
     if (!GenderAvailableEnum.includes(upperGender)) return ['Invalid Gender']
     if (!PetsAvailableEnum.includes(upperSpecie)) return ['Invalid Specie']
     if (!user) return ['user is Required']
-    return [undefined, new CreatePetDto(name, description, age, reference, upperSpecie, upperGender, weight, img, medicalHistory, user.id)]
+    return [undefined, new CreatePetDto(name, description, age, reference, upperSpecie, upperGender,upperBreed, weight, img, medicalHistory, user.id)]
   }
 }
