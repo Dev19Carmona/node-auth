@@ -22,8 +22,8 @@ export class CreatePetDto {
     if (!age) return ['age is Required']
     if (!specie) return ['specie is Required']
     if (!gender) return ['gender is Required']
-    if (!GenderAvailableEnum.includes(upperGender)) return ['gender is Required']
-    if (!PetsAvailableEnum.includes(upperSpecie)) return ['gender is Required']
+    if (!GenderAvailableEnum.includes(upperGender)) return ['Invalid Gender']
+    if (!PetsAvailableEnum.includes(upperSpecie)) return ['Invalid Specie']
     if (!user) return ['user is Required']
     return [undefined, new CreatePetDto(name, description, age, reference, upperSpecie, upperGender, weight, img, medicalHistory, user.id)]
   }
