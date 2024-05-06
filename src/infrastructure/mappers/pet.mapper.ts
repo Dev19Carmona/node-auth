@@ -5,6 +5,7 @@ export class PetMapper {
   constructor() { }
   static petEntityFromObject(object: { [key: string]: any }): PetEntity {
     const { id, _id, name, specie, gender, owner } = object
+    
     if (!id || !_id) throw CustomError.badRequest('Missing id')
     if (!name) throw CustomError.badRequest('Missing name')
     if (!specie) throw CustomError.badRequest('Missing specie')

@@ -19,6 +19,7 @@ const schema = new mongoose.Schema(
     img: { type: String, default: 'no-image' },
     medicalHistory: { type: String },
     owner: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+    isRemove: { type: Boolean, default: false }
   },
   {
     timestamps: true,

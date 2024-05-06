@@ -1,1 +1,1 @@
-export const RolesEnum = ['USER_ROLE', 'ADMIN_ROLE']
+export const RolesEnum = ['USER_ROLE', 'DOCTOR_ROLE']

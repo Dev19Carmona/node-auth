@@ -10,6 +10,9 @@ export class PetRepositoryImpl implements PetRepository {
   ) {
 
   }
+  deletePet(_id: string): Promise<PetEntity> {
+    return this.petDatasource.deletePet(_id)
+  }
   getMyPets(owner: string): Promise<PetEntity[]> {
     return this.petDatasource.getMyPets(owner)
   }

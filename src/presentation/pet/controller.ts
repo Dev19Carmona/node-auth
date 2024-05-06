@@ -2,7 +2,7 @@ import { Request, Response } from 'express'
 import { CreatePetDto } from '../../domain/dtos'
 import { PetRepository } from '../../domain/repositories'
 import { CustomError } from '../../domain/errors'
-import { GetMyPets, RegisterPet } from '../../domain/use-cases'
+import { DeletePet, GetMyPets, RegisterPet } from '../../domain/use-cases'
 
 export class PetController {
   constructor(private readonly petRepository: PetRepository) {}
@@ -27,4 +27,12 @@ export class PetController {
       .then((myPets) => res.json(myPets))
       .catch((err) => this.handleError(err, res))
   }
+  deletePet = (req: Request, res: Response) => {
+    const _id = req.params._id
+    new DeletePet(this.petRepository)
+    .execute(_id)
+    .then((pet) => res.json(pet))
+    .catch((err) => this.handleError(err, res))
+  }
+  
 }

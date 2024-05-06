@@ -5,5 +5,6 @@ import { PetEntity, SessionUserEntity, UserEntity } from "../entities";
 export abstract class PetRepository {
   abstract register(createPetDto: CreatePetDto):Promise<PetEntity>
   abstract getMyPets(owner: string):Promise<PetEntity[]>
+  abstract deletePet(_id: string): Promise<PetEntity>
 
 }

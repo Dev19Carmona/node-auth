@@ -14,6 +14,7 @@ export class PetRoutes {
     router.use(AuthMiddleware.validateJwt)
     router.get('/my-pets', controller.getMyPets)
     router.post('/register', controller.registerPet)
+    router.put('/delete/:_id', controller.deletePet)
     return router
   }
 }
