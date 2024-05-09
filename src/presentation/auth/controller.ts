@@ -25,6 +25,8 @@ export class AuthController {
   }
   loginUser = (req: Request, res: Response) => {
     const [error, userSessionDto] = LoginUserDto.create(req.body)
+    console.log({userSessionDto});
+    
     if (error) return res.status(404).json({ error })
     const loginUserUseCase = new LoginUser(this.authReporitory)
     loginUserUseCase
