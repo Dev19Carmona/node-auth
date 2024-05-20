@@ -21,7 +21,11 @@ export class AuthController {
     registerUserUseCase
       .execute(createUserDto!)
       .then((userToken) => res.json(userToken))
-      .catch((err) => this.handleError(err, res))
+      .catch((err) => {
+        console.log(err);
+        
+        return this.handleError(err, res)
+      })
   }
   loginUser = (req: Request, res: Response) => {
     const [error, userSessionDto] = LoginUserDto.create(req.body)

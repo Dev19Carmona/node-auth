@@ -1,8 +1,8 @@
 import { Request, Response } from 'express'
-import { CreateAppointmentByUserDto } from '../../domain/dtos'
+import { CreateAppointmentByUserDto, MyAppointmentsDto } from '../../domain/dtos'
 import { AppointmentRepository } from '../../domain/repositories'
 import { CustomError } from '../../domain/errors'
-import { RegisterAppointmentByUser } from '../../domain/use-cases'
+import { MyAppointments, RegisterAppointmentByUser } from '../../domain/use-cases'
 
 export class AppointmentController {
   constructor(
@@ -22,11 +22,14 @@ export class AppointmentController {
     .then((is) => res.json({created:is}))
     .catch((err) => this.handleError(err, res))
   }
-  // getMyPets = (req: Request, res: Response) => {
-  //   const owner = req.body.user
-  //   new GetMyPets(this.petRepository)
-  //     .execute(owner.id)
-  //     .then((myPets) => res.json(myPets))
-  //     .catch((err) => this.handleError(err, res))
-  // }
+  myAppointments = (req: Request, res: Response) => {
+    const [error, myAppointmentsDto] = MyAppointmentsDto.searchByUser(req.body)
+    if (error) return res.status(404).json({ error })
+
+    new MyAppointments(this.appointmentRepository)
+    .execute(myAppointmentsDto!)
+    .then((myAppointments) => res.json(myAppointments))
+    .catch((err) => this.handleError(err, res))
+
+  }
 }

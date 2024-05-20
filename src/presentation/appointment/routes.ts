@@ -3,11 +3,9 @@ import { Router } from 'express'
 import { AuthMiddleware } from '../middlewares/auth.middleware'
 import {
   MongoAppointmentDataSourceImpl,
-  MongoPetDataSourceImpl,
 } from '../../infrastructure/datasources/mongo'
 import {
   AppointmentRepositoryImpl,
-  PetRepositoryImpl,
 } from '../../infrastructure/repositories/mongo'
 import { AppointmentController } from './controller'
 
@@ -20,6 +18,7 @@ export class AppointmentRoutes {
     const router = Router()
     router.use(AuthMiddleware.validateJwt)
     router.post('/register', controller.registerAppointment)
+    router.get('/', controller.myAppointments)
     return router
   }
 }

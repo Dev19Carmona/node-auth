@@ -7,4 +7,6 @@ export const DateDetails = {
   dayOfWeek: Number,
   monthName: String,
   dayOfWeekName: String,
+  hours: Number,
+  minutes: Number
 }

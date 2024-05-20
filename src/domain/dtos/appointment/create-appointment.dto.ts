@@ -17,24 +17,31 @@ export class CreateAppointmentByUserDto {
   static create(object: {
     [key: string]: any
   }): [string?, CreateAppointmentByUserDto?] {
-    const { user, pet, doctor, startDate, endDate, location, status } = object
+    const { user, pet, doctor, startDateUnix, location, status } = object
     const upperStatus = status ? status.toUpperCase() : 'PENDING'
     if (!AppointmentStatusEnum.includes(upperStatus)) return ['Invalid Status']
     if (!pet) return ['pet is Required']
     if (!location) return ['location is Required']
     if (!doctor) return ['doctor is Required']
-    if (!startDate) return ['startDate is Required']
-    const start = new Date(startDate)
-    if (!endDate) return ['endDate is Required']
-    const end = new Date(endDate)
+    if (!startDateUnix) return ['startDate is Required']
+
+    const startDate = new Date(parseFloat(startDateUnix))
+    const startHours = startDate.getHours()
+    const endHours = startHours + 1
+    const endDate = startDate
+    endDate.setHours(endHours)
+    
+    const start = GeneralFuncions.getDateDetails(startDate)
+    const end = GeneralFuncions.getDateDetails(endDate)
+    
     return [
       undefined,
       new CreateAppointmentByUserDto(
         user.id,
         pet,
         doctor,
-        GeneralFuncions.getDateDetails(start),
-        GeneralFuncions.getDateDetails(end),
+        start,
+        end,
         location,
         upperStatus
       ),

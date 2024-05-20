@@ -5,9 +5,11 @@ import {
   GenderAvailableEnum,
   PetsAvailableEnum,
 } from '../../enums'
+import { UuidAdapter } from '../../../config'
 const collectionName = 'Pet'
 const schema = new mongoose.Schema(
   {
+    _id: { type: String, default: UuidAdapter.uuidV4 },
     name: { type: String, required: [true, 'Name is Required by Mongoose'] },
     description: { type: String },
     age: { type: Number, required: true },
@@ -18,11 +20,12 @@ const schema = new mongoose.Schema(
     weight: { type: Number },
     img: { type: String, default: 'no-image' },
     medicalHistory: { type: String },
-    owner: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+    owner: { type: String, ref: 'User', required: true },
     isRemove: { type: Boolean, default: false }
   },
   {
     timestamps: true,
+    _id: false
   }
 )
 
