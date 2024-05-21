@@ -11,7 +11,7 @@ export class AppointmentEntity {
     public status: string,
     public pet: PetEntity,
     public startDate: DateDetails,
-    public endDate: DateDetails,
+    // public endDate: DateDetails,
   ) {
 
   }
@@ -23,8 +23,8 @@ export class AppointmentEntity {
     if (!status) throw CustomError.badRequest('Missing status')
     if (!pet) throw CustomError.badRequest('Missing pet')
     if (!startDate) throw CustomError.badRequest('Missing startDate')
-    if (!endDate) throw CustomError.badRequest('Missing endDate')
+    // if (!endDate) throw CustomError.badRequest('Missing endDate')
 
-    return new AppointmentEntity(id || _id, customer, doctor, status, pet, startDate, endDate)
+    return new AppointmentEntity(id || _id, customer, doctor, status, pet, startDate)
   }
 }
