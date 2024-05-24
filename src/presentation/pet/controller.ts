@@ -5,7 +5,7 @@ import { CustomError } from '../../domain/errors'
 import { DeletePet, GetMyPets, RegisterPet } from '../../domain/use-cases'
 
 export class PetController {
-  constructor(private readonly petRepository: PetRepository) {}
+  constructor(private readonly petRepository: PetRepository) { }
   private handleError = (error: unknown, res: Response) => {
     if (error instanceof CustomError) {
       return res.status(error.statusCode).json({ error: error.message })
@@ -30,9 +30,9 @@ export class PetController {
   deletePet = (req: Request, res: Response) => {
     const _id = req.params._id
     new DeletePet(this.petRepository)
-    .execute(_id)
-    .then((pet) => res.json(pet))
-    .catch((err) => this.handleError(err, res))
+      .execute(_id)
+      .then((pet) => res.json(pet))
+      .catch((err) => this.handleError(err, res))
   }
-  
+
 }

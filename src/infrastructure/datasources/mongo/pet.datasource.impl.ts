@@ -28,7 +28,6 @@ export class MongoPetDataSourceImpl implements PetDataSource {
       const newPet = await new PetModel({
         ...createPetDto,
       }).save()
-
       return PetMapper.petEntityFromObject(newPet)
     } catch (error) {
       if (error instanceof CustomError) {

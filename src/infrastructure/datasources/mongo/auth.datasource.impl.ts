@@ -37,16 +37,12 @@ export class MongoAuthDataSourceImpl implements AuthDataSource {
     }
   }
   async register(createUserDto: CreateUserDto): Promise<UserEntity> {
-    const { name, email, password } = createUserDto
     try {
-      const existingUser = await UserModel.countDocuments({ email })
+      createUserDto.password = this.hashPassword(createUserDto.password)
+      const existingUser = await UserModel.countDocuments({ email: createUserDto.email })
       if (existingUser) throw CustomError.badRequest('User already exist')
-
-      const user = new UserModel({
-        name,
-        email,
-        password: this.hashPassword(password),
-      })
+        
+      const user = new UserModel({...createUserDto})
       const newUser = await user.save()
       return UserMapper.userEntityFromObject(newUser)
     } catch (error) {

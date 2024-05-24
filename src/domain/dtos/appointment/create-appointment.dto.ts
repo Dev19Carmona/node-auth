@@ -1,4 +1,5 @@
-import { GeneralFuncions } from '../../../config'
+import mongoose from 'mongoose'
+import { GeneralFuncions, UuidAdapter } from '../../../config'
 import {
   AppointmentStatusEnum,
 } from '../../../data/enums'
@@ -6,9 +7,9 @@ import { DateDetails } from '../../../interfaces'
 
 export class CreateAppointmentByUserDto {
   private constructor(
-    public customer: string,
-    public pet: string,
-    public doctor: string,
+    public customer: mongoose.Types.ObjectId,
+    public pet: mongoose.Types.ObjectId,
+    public doctor: mongoose.Types.ObjectId,
     public startDate: DateDetails,
     public endDate: DateDetails,
     public location: string,
@@ -24,7 +25,6 @@ export class CreateAppointmentByUserDto {
     if (!location) return ['location is Required']
     if (!doctor) return ['doctor is Required']
     if (!startDateUnix) return ['startDate is Required']
-
     const startDate = new Date(parseFloat(startDateUnix))
     const startHours = startDate.getHours()
     const endHours = startHours + 1
@@ -34,12 +34,13 @@ export class CreateAppointmentByUserDto {
     const start = GeneralFuncions.getDateDetails(startDate)
     const end = GeneralFuncions.getDateDetails(endDate)
     
+    const userObject = new mongoose.Types.ObjectId(user.id)
     return [
       undefined,
       new CreateAppointmentByUserDto(
-        user.id,
-        pet,
-        doctor,
+        new mongoose.Types.ObjectId(user.id),
+        new mongoose.Types.ObjectId(pet),
+        new mongoose.Types.ObjectId(doctor),
         start,
         end,
         location,
