@@ -14,6 +14,7 @@ export class CreateUserDto {
       'doctor3@gmail.com',
       'doctor4@gmail.com',
       'doctor5@gmail.com',
+      'ago@gmail.com'
     ]
     const { name, email, password } = object
     let roles = ['USER_ROLE'];

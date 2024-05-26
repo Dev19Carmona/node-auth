@@ -17,6 +17,10 @@ const schema = new mongoose.Schema(
       enum: AppointmentStatusEnum,
       default: 'PENDING',
     },
+    typeAppointment: {
+      type: Object,
+      default: {}
+    }
   },
   {
     timestamps: true,

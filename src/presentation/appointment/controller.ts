@@ -3,6 +3,8 @@ import { CreateAppointmentByUserDto, MyAppointmentsDto } from '../../domain/dtos
 import { AppointmentRepository } from '../../domain/repositories'
 import { CustomError } from '../../domain/errors'
 import { MyAppointments, RegisterAppointmentByUser } from '../../domain/use-cases'
+import { typesAppointments } from '../../data/appointments/types';
+import { TypesAppointments } from '../../domain/use-cases/appointment/types-appointment.use-case'
 
 export class AppointmentController {
   constructor(
@@ -31,5 +33,8 @@ export class AppointmentController {
     .then((myAppointments) => res.json(myAppointments))
     .catch((err) => this.handleError(err, res))
 
+  }
+  typesAppointments = (req: Request, res: Response) => {
+    res.json(Object.values(typesAppointments))
   }
 }
