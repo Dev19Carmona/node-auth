@@ -12,8 +12,6 @@ import { AppointmentController } from './controller'
 export class AppointmentRoutes {
   static get routes(): Router {
     const datasource = new MongoAppointmentDataSourceImpl()
-    console.log(datasource);
-    
     const appointmentRepository = new AppointmentRepositoryImpl(datasource)
     const controller = new AppointmentController(appointmentRepository)
     const router = Router()
@@ -21,6 +19,7 @@ export class AppointmentRoutes {
     router.post('/register', controller.registerAppointment)
     router.get('/my-appointments', controller.myAppointments)
     router.get('/types-appointments', controller.typesAppointments)
+    router.post('/change-status', controller.changeStatusAppointment)
     return router
   }
 }

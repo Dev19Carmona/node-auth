@@ -1,8 +1,8 @@
 import { Request, Response } from 'express'
-import { CreateAppointmentByUserDto, MyAppointmentsDto } from '../../domain/dtos'
+import { ChangeStatusAppointmentDto, CreateAppointmentByUserDto, MyAppointmentsDto } from '../../domain/dtos'
 import { AppointmentRepository } from '../../domain/repositories'
 import { CustomError } from '../../domain/errors'
-import { MyAppointments, RegisterAppointmentByUser } from '../../domain/use-cases'
+import { ChangeStatus, MyAppointments, RegisterAppointmentByUser } from '../../domain/use-cases'
 import { typesAppointments } from '../../data/appointments/types';
 import { TypesAppointments } from '../../domain/use-cases/appointment/types-appointment.use-case'
 
@@ -36,5 +36,14 @@ export class AppointmentController {
   }
   typesAppointments = (req: Request, res: Response) => {
     res.json(Object.values(typesAppointments))
+  }
+  changeStatusAppointment = (req: Request, res: Response) => {
+    const [error, changeStatusAppointmentDto] = ChangeStatusAppointmentDto.create(req.body)
+    if (error) return res.status(404).json({ error })
+    
+    new ChangeStatus(this.appointmentRepository)
+    .execute(changeStatusAppointmentDto!)
+    .then((appointmentUpdated) => res.json(appointmentUpdated))
+    .catch((err) => this.handleError(err, res))
   }
 }

@@ -13,9 +13,6 @@ export class TypesAppointments implements TypesAppointmentsUseCase {
     private readonly appointmentRepository: AppointmentRepository,
   ) { }
   execute(object: { [key: string]: TypeAppointmentEntity }): AppointmentEntity[] {
-// console.log(Object.values(object).map(o => TypeAppointmentEntity.fromObject(o)));
-console.log(this.appointmentRepository);
-
     return []
     // throw new Error('Method not implemented.')
   }

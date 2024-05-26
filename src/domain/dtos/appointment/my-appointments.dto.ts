@@ -7,6 +7,7 @@ interface IMyAppointment {
     pet?: string;
     _id?: string;
     startDate?: string
+    "typeAppointment.id"?: number
 }
 export class MyAppointmentsDto {
 
@@ -22,7 +23,20 @@ export class MyAppointmentsDto {
         if (pet) query.pet = pet
         if (_id) query._id = _id
 
-        // if(startDate)query.startDate = startDate
+        // if(startDate)query.startDate = {}
         return [undefined, query]
+    }
+
+    static validPendingAppointments(object: {
+        [key: string]: any
+    }): [string?, IMyAppointment?] {
+        const { typeAppointment, status, pet, customer } = object
+
+        if (!typeAppointment) return ['typeAppointment is required']
+        if (!status) return ['status is required']
+        if (!pet) return ['pet is required']
+        if (!customer) return ['customer is required']
+
+        return [undefined, { status, pet, customer, "typeAppointment.id": typeAppointment.id }]
     }
 }
