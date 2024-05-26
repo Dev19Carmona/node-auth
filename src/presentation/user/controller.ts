@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import { CreatePetDto, CreateUserDto } from '../../domain/dtos'
+import { CreatePetDto, CreateUserDto, GetDoctorsDto } from '../../domain/dtos'
 import { PetRepository, UserRepository } from '../../domain/repositories'
 import { CustomError } from '../../domain/errors'
 import { DeletePet, GetDoctors, GetMyPets, RegisterPet } from '../../domain/use-cases'
@@ -13,8 +13,11 @@ export class UserController {
     return res.status(500).json({ error: '¡Internal Server Error!' })
   }
   getDoctors = (req: Request, res: Response) => {
+    const [error, getDoctorsDto] = GetDoctorsDto.create(req.body)
+    if (error) return res.status(404).json({ error })
+    
     new GetDoctors(this.userRepository)
-    .execute()
+    .execute(getDoctorsDto!)
     .then((doctors) => res.json(doctors))
     .catch((err) => this.handleError(err, res))
 

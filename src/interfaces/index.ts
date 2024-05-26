@@ -7,6 +7,12 @@ export interface DateDetails {
   dayOfWeek: number;
   monthName: string;
   dayOfWeekName: string;
-  hours: number, 
+  hours: number,
   minutes: number
+}
+export interface ConvertMiliseconds {
+  milliseconds: number,
+  seconds: number,
+  minutes: number,
+  hours: number
 }

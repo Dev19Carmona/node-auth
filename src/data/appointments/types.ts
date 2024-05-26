@@ -100,4 +100,8 @@ export const typesAppointments:{[key: string]: TypeAppointmentEntity} = {
       isRemove: false
     }
   };
-  
+
+export const typesAppointmentsArray = ():TypeAppointmentEntity[]=>{
+
+return Object.values(typesAppointments) 
+}
