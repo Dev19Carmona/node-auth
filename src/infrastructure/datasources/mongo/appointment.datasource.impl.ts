@@ -34,7 +34,7 @@ export class MongoAppointmentDataSourceImpl implements AppointmentDataSource {
         .populate("customer", "-password")
         .populate("doctor", "-password")
         .populate("pet")
-
+      
       return myAppointments.length ? myAppointments.map(myAppointment => AppointmentEntity.fromObject(myAppointment)) : []
     } catch (error) {
       console.log(error);

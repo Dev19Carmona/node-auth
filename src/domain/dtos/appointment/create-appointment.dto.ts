@@ -22,7 +22,6 @@ export class CreateAppointmentByUserDto {
     [key: string]: any
   }): [string?, CreateAppointmentByUserDto?] {
     const { user, pet, doctor, startDateUnix, location, status, typeAppointment = typesAppointments.banar } = object
-    console.log({typeAppointment, startDateUnix});
     
     const startDate = new Date(parseFloat(startDateUnix));
     const startMinutes = startDate.getMinutes();

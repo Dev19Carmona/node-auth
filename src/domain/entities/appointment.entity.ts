@@ -1,6 +1,7 @@
 import { DateDetails } from "../../interfaces";
 import { CustomError } from "../errors";
 import { PetEntity } from "./pet-entity";
+import { TypeAppointmentEntity } from "./type-appointments.entity";
 import { UserEntity } from "./user-entity";
 
 export class AppointmentEntity {
@@ -11,12 +12,13 @@ export class AppointmentEntity {
     public status: string,
     public pet: PetEntity,
     public startDate: DateDetails,
+    public typeAppointment: TypeAppointmentEntity
     // public endDate: DateDetails,
   ) {
 
   }
   static fromObject(object: { [key: string]: any }): AppointmentEntity {
-    const { id, _id, customer, doctor, status, pet, startDate, endDate } = object
+    const { id, _id, customer, doctor, status, pet, startDate, endDate, typeAppointment } = object
 
     if (!id || !_id) throw CustomError.badRequest('Missing id')
     if (!customer) throw CustomError.badRequest('Missing customer')
@@ -25,6 +27,6 @@ export class AppointmentEntity {
     if (!startDate) throw CustomError.badRequest('Missing startDate')
     // if (!endDate) throw CustomError.badRequest('Missing endDate')
 
-    return new AppointmentEntity(id || _id, customer, doctor, status, pet, startDate)
+    return new AppointmentEntity(id || _id, customer, doctor, status, pet, startDate, typeAppointment)
   }
 }
