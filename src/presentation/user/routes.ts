@@ -12,7 +12,7 @@ export class UserRoutes {
     const controller = new UserController(userRepository)
     const router = Router()
     router.use(AuthMiddleware.validateJwt)
-    router.get('/doctors', controller.getDoctors)
+    router.post('/doctors', controller.getDoctors)
     return router
   }
 }
