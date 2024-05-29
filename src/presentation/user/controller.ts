@@ -13,8 +13,10 @@ export class UserController {
     return res.status(500).json({ error: '¡Internal Server Error!' })
   }
   getDoctors = (req: Request, res: Response) => {
+    console.log({body:req.body});
     const [error, getDoctorsDto] = GetDoctorsDto.create(req.body)
     if (error) return res.status(404).json({ error })
+    console.log({getDoctorsDto});
     
     new GetDoctors(this.userRepository)
     .execute(getDoctorsDto!)

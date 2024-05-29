@@ -38,6 +38,8 @@ export class AppointmentController {
     res.json(Object.values(typesAppointments))
   }
   changeStatusAppointment = (req: Request, res: Response) => {
+    
+    
     const [error, changeStatusAppointmentDto] = ChangeStatusAppointmentDto.create(req.body)
     if (error) return res.status(404).json({ error })
     

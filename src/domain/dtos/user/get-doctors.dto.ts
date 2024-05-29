@@ -12,7 +12,9 @@ export class GetDoctorsDto {
         const { typeAppointmentId, startDateUnix } = object
         if(!typeAppointmentId)return ['typeAppointmentId is required']
         if(!startDateUnix)return ['startDateUnix is required']
-        const startDate = new Date(parseFloat(startDateUnix) - 600000)
+        const startDate = new Date(startDateUnix)
+        console.log({startDate});
+        
         const startDateObject = GeneralFuncions.getDateDetails(startDate)
         return [undefined, new GetDoctorsDto(typeAppointmentId, startDateObject)]
     }
