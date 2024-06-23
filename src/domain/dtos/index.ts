@@ -1,7 +1,2 @@
 export * from './auth/create-user.dto'
 export * from './auth/login-user.dto'
-export * from './pet/create-pet.dto'
-export * from './appointment/create-appointment.dto'
-export * from './appointment/my-appointments.dto'
-export * from './appointment/change-status-appointment.dto'
-export * from './user/get-doctors.dto'
