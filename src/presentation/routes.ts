@@ -9,6 +9,7 @@ export class AppRoutes {
       next()
     })
     router.use('/api/auth', AuthRoutes.routes)
+    router.use('/api/inventory' )
     return router
   }
 }
