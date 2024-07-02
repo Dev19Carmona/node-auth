@@ -1,10 +1,10 @@
 import { Request, Response } from 'express'
-import { CreateUserDto, FilterGetProductsDto, LoginUserDto } from '../../domain/dtos'
+import { CreateProductDto, CreateUserDto, FilterGetProductsDto, LoginUserDto } from '../../domain/dtos'
 import { AuthRepository, ProductRepository } from '../../domain/repositories'
 import { CustomError } from '../../domain/errors'
 import { JwtAdapter } from '../../config'
 import { UserModel } from '../../data/mongodb'
-import { LoginUser, RegisterUser } from '../../domain/use-cases'
+import { CreateProduct, LoginUser, RegisterUser } from '../../domain/use-cases'
 import { GetProducts } from '../../domain/use-cases/products/get-products.use-case'
 
 export class ProductController {
@@ -22,6 +22,16 @@ export class ProductController {
     getProductsUseCase.execute(filterGetProductsDto!)
       .then((products) => res.json(products))
       .catch((err) => this.handleError(err, res))
+
+  }
+
+  createProduct = (req: Request, res: Response) => {
+    const [error, createProductDto] = CreateProductDto.create(req.body)
+    if (error) return res.status(404).json({ error })
+      const createProductUseCase = new CreateProduct(this.productRepository)
+    createProductUseCase.execute(createProductDto!)
+    .then((product) =>res.json(product))
+    .catch((err) => this.handleError(err, res))
 
   }
   // registerUser = (req: Request, res: Response) => {

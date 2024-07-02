@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { AuthRoutes } from "./auth/routes";
+import { ProductRoutes } from "./product/route";
 
 export class AppRoutes {
   static get routes(): Router {
@@ -9,7 +10,7 @@ export class AppRoutes {
       next()
     })
     router.use('/api/auth', AuthRoutes.routes)
-    router.use('/api/inventory' )
+    router.use('/api/product', ProductRoutes.routes)
     return router
   }
 }
