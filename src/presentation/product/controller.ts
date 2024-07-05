@@ -34,32 +34,4 @@ export class ProductController {
     .catch((err) => this.handleError(err, res))
 
   }
-  // registerUser = (req: Request, res: Response) => {
-  //   const [error, createUserDto] = CreateUserDto.create(req.body)
-  //   if (error) return res.status(404).json({ error })
-  //   const registerUserUseCase = new RegisterUser(this.authReporitory)
-  //   registerUserUseCase
-  //     .execute(createUserDto!)
-  //     .then((userToken) => res.json(userToken))
-  //     .catch((err) => this.handleError(err, res))
-  // }
-  // loginUser = (req: Request, res: Response) => {
-  //   const [error, userSessionDto] = LoginUserDto.create(req.body)
-  //   if (error) return res.status(404).json({ error })
-  //   const loginUserUseCase = new LoginUser(this.authReporitory)
-  //   loginUserUseCase
-  //     .execute(userSessionDto!)
-  //     .then((session) => res.json(session))
-  //     .catch((err) => this.handleError(err, res))
-  // }
-  // getUsers = (req: Request, res: Response) => {
-  //   UserModel.find()
-  //     .then((users) =>
-  //       res.json({
-  //         users,
-  //         user: req.body.user,
-  //       })
-  //     )
-  //     .catch((err) => this.handleError(err, res))
-  // }
 }
