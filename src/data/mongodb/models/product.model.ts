@@ -1,5 +1,5 @@
 import mongoose, { Schema } from 'mongoose'
-const collectionName = 'Product'
+export const collectionProductName = 'Product'
 const schema = new mongoose.Schema(
   {
     name: { type: String, required: [true, 'Name is Required'] },
@@ -9,8 +9,9 @@ const schema = new mongoose.Schema(
     
   },
   {
+    versionKey: false,
     timestamps: true,
   }
 )
 
-export const ProductModel = mongoose.model(collectionName, schema)
+export const ProductModel = mongoose.model(collectionProductName, schema)
