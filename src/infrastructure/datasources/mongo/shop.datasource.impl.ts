@@ -6,11 +6,15 @@ import { CustomError } from "../../../domain/errors";
 import { upsertObject } from "./constants";
 
 export class MongoShopDataSourceImpl implements ShopDataSource {
+    getShop(_idCompany: string): Promise<ShopEntity[]> {
+        throw new Error("Method not implemented.");
+    }
 
     async createShop(createShopDto: CreateShopDto): Promise<ShopEntity> {
         try {
             const { name } = createShopDto
-            const newShop = await ShopModel.findByIdAndUpdate({ name }, createShopDto, upsertObject)
+            const newShop = await ShopModel.findOneAndUpdate({ name }, createShopDto, upsertObject)
+            console.log({newShop})
             if (!newShop) throw new Error('')
             return ShopEntity.fromObject(newShop)
         } catch (error) {

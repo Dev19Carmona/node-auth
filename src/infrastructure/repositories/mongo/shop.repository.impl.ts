@@ -9,6 +9,9 @@ export class ShopRepositoryImpl implements ShopRepository {
       ) {
         
       }
+    getShop(_idCompany: string): Promise<ShopEntity[]> {
+        throw new Error("Method not implemented.");
+    }
     createShop(createShopDto: CreateShopDto): Promise<ShopEntity> {
         return this.shopDataSource.createShop(createShopDto)
     }

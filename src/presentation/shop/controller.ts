@@ -18,6 +18,7 @@ export class ShopController {
 
   createShop = (req: Request, res: Response) => {
     const [error, createShopDto] = CreateShopDto.create(req.body)
+    console.log(createShopDto)
     if (error) return res.status(404).json({ error })
     const createShopUseCase = new CreateShop(this.shopRepository)
     createShopUseCase.execute(createShopDto!)
