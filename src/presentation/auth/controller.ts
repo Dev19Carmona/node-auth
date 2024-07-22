@@ -2,12 +2,11 @@ import { Request, Response } from 'express'
 import { CreateUserDto, LoginUserDto } from '../../domain/dtos'
 import { AuthRepository } from '../../domain/repositories'
 import { CustomError } from '../../domain/errors'
-import { JwtAdapter } from '../../config'
 import { UserModel } from '../../data/mongodb'
 import { LoginUser, RegisterUser } from '../../domain/use-cases'
 
 export class AuthController {
-  constructor(private readonly authReporitory: AuthRepository) {}
+  constructor(private readonly authRepository: AuthRepository) {}
   private handleError = (error: unknown, res: Response) => {
     if (error instanceof CustomError) {
       return res.status(error.statusCode).json({ error: error.message })
@@ -17,7 +16,7 @@ export class AuthController {
   registerUser = (req: Request, res: Response) => {
     const [error, createUserDto] = CreateUserDto.create(req.body)
     if (error) return res.status(404).json({ error })
-    const registerUserUseCase = new RegisterUser(this.authReporitory)
+    const registerUserUseCase = new RegisterUser(this.authRepository)
     registerUserUseCase
       .execute(createUserDto!)
       .then((userToken) => res.json(userToken))
@@ -26,7 +25,7 @@ export class AuthController {
   loginUser = (req: Request, res: Response) => {
     const [error, userSessionDto] = LoginUserDto.create(req.body)
     if (error) return res.status(404).json({ error })
-    const loginUserUseCase = new LoginUser(this.authReporitory)
+    const loginUserUseCase = new LoginUser(this.authRepository)
     loginUserUseCase
       .execute(userSessionDto!)
       .then((session) => res.json(session))
