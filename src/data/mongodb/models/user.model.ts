@@ -1,9 +1,11 @@
 import mongoose, { Schema } from 'mongoose'
 import { RolesEnum } from '../../enums'
+import { ContactInfo } from './types'
 const collectionName = 'User'
 const schema = new mongoose.Schema(
   {
     name: { type: String, required: [true, 'Name is Required by Mongoose'] },
+    contactInfo: { type: ContactInfo },
     email: {
       type: String,
       required: [true, 'email is Required by Mongoose'],
@@ -19,7 +21,7 @@ const schema = new mongoose.Schema(
       default: ['USER_ROLE'],
       enum: RolesEnum,
     },
-    
+
   },
   {
     timestamps: true,

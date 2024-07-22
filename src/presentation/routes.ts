@@ -2,6 +2,7 @@ import { Router } from "express";
 import { AuthRoutes } from "./auth/routes";
 import { ProductRoutes } from "./product/route";
 import { ShopRoutes } from "./shop/routes";
+import { CompanyRoutes } from "./company/routes";
 
 export class AppRoutes {
   static get routes(): Router {
@@ -13,6 +14,7 @@ export class AppRoutes {
     router.use('/api/auth', AuthRoutes.routes)
     router.use('/api/product', ProductRoutes.routes)
     router.use('/api/shop', ShopRoutes.routes)
+    router.use('/api/company', CompanyRoutes.routes)
     return router
   }
 }

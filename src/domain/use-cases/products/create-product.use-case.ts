@@ -9,6 +9,7 @@ interface CreateProductUseCase {
 export class CreateProduct implements CreateProductUseCase {
     constructor(
         private readonly productRepository: ProductRepository,
+        
       ) {}
     execute(createProductDto: CreateProductDto): Promise<ProductEntity> {
         return this.productRepository.createProduct(createProductDto)

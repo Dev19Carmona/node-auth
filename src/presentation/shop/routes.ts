@@ -6,9 +6,9 @@ import { ShopRepositoryImpl } from '../../infrastructure/repositories/mongo'
 
 export class ShopRoutes {
     static get routes(): Router {
-        const productDataSource = new MongoShopDataSourceImpl()
+        const shopDataSource = new MongoShopDataSourceImpl()
 
-        const shopRepository = new ShopRepositoryImpl(productDataSource)
+        const shopRepository = new ShopRepositoryImpl(shopDataSource)
         const controller = new ShopController(shopRepository)
         const router = Router()
         router.use([AuthMiddleware.validateJwt])

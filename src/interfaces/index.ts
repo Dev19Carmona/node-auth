@@ -1,3 +1,5 @@
+export * from './user.interface'
+export * from './company.interface'
 export interface DateDetails {
   datetime: Date;
   ms: number;

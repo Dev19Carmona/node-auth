@@ -15,8 +15,6 @@ export class MongoProductDataSourceImpl implements ProductDataSource {
                 createProductDto, 
                 upsertObject
             )
-            console.log(newProduct);
-            
             return ProductEntity.fromObject(newProduct!)
         } catch (error) {
             console.log({error});
