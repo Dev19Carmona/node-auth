@@ -11,7 +11,7 @@ export class ShopRoutes {
         const shopRepository = new ShopRepositoryImpl(shopDataSource)
         const controller = new ShopController(shopRepository)
         const router = Router()
-        router.use([AuthMiddleware.validateJwt])
+        // router.use([AuthMiddleware.validateJwt])
         router.post('/create',controller.createShop)
         return router
     }

@@ -1,12 +1,15 @@
-import mongoose, { Schema } from 'mongoose'
+import mongoose from 'mongoose'
+import { ContactInfo, LocationInfo } from './types'
 const collectionName = 'Shop'
 const schema = new mongoose.Schema(
   {
     name: { type: String, required: [true, 'Name is Required'] },
-    price: { type: Number, required: [true, 'Price is required'] },
-    products: { type: [String], ref: 'Product' },
+    contactInfo: { type: ContactInfo },
+    locationInfo: { type: LocationInfo },
+    products: { type: [String], ref: 'Product' }, //TODO Cambiar a ObjectId
     img: { type: String, default: 'no-image' },
-    company: {type:String}
+    company: { type: String }, //TODO Cambiar a ObjectId
+
   },
   {
     timestamps: true,
