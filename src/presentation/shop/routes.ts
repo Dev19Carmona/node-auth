@@ -13,6 +13,9 @@ export class ShopRoutes {
         const router = Router()
         // router.use([AuthMiddleware.validateJwt])
         router.post('/create',controller.createShop)
+        router.get('/',controller.getShops)
+        router.put('/update',controller.updateShop)
+        router.put('/delete',controller.deleteShop)
         return router
     }
 }
