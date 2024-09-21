@@ -4,6 +4,7 @@ import { ContactInfo } from './types'
 const collectionName = 'User'
 const schema = new mongoose.Schema(
   {
+    companyId: { type: Schema.Types.ObjectId, ref: 'Company' },
     name: { type: String, required: [true, 'Name is Required by Mongoose'] },
     contactInfo: { type: ContactInfo },
     email: {
@@ -16,11 +17,22 @@ const schema = new mongoose.Schema(
       required: [true, 'Password is required by Mongoose'],
     },
     img: { type: String, default: 'no-image' },
-    roles: {
-      type: [String],
-      default: ['USER_ROLE'],
-      enum: RolesEnum,
+    role: {
+      type: Schema.Types.ObjectId,
+      ref: 'Role'
     },
+    token: {
+      value: {
+        type: String,
+      },
+      iat: {
+        type: Number
+      },
+      exp: {
+        type: Number
+      }
+    },
+
 
   },
   {

@@ -1,5 +1,6 @@
 export * from './auth/register-user.use-case'
 export * from './auth/login-user.use-case'
+export * from './auth/verify-session-use.case'
 export * from './products/create-product.use-case'
 export * from './shop/index'
 export * from './company/create-company.use-case'

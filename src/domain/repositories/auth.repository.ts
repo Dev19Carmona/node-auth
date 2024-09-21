@@ -5,4 +5,5 @@ import { SessionUserEntity, UserEntity } from "../entities";
 export abstract class AuthRepository {
   abstract register(createUserDto: CreateUserDto):Promise<UserEntity>
   abstract login(loginUserDto: LoginUserDto):Promise<SessionUserEntity>
+  abstract verifySession(token: string):Promise<boolean>
 }

@@ -1,4 +1,5 @@
-import { BcryptAdapter, JwtAdapter } from '../../../config'
+import exp from 'constants'
+import { BcryptAdapter, GeneralFuncions, JwtAdapter } from '../../../config'
 import { UserModel } from '../../../data/mongodb'
 import { AuthDataSource } from '../../../domain/datasources'
 import { CreateUserDto, LoginUserDto } from '../../../domain/dtos'
@@ -12,22 +13,46 @@ type GenerateTokenFunction = (
   payload: Object,
   duration?: string
 ) => Promise<string | null>
+type DecodedTokenFunction = (token: string) => UserEntity
 export class MongoAuthDataSourceImpl implements AuthDataSource {
   constructor(
     private readonly hashPassword: HashFunction = BcryptAdapter.hash,
     private readonly comparePassword: CompareFunction = BcryptAdapter.compare,
-    private readonly generateToken: GenerateTokenFunction = JwtAdapter.generateToken
-  ) {}
+    private readonly generateToken: GenerateTokenFunction = JwtAdapter.generateToken,
+    private readonly decodedToken: any = JwtAdapter.decodeToken,
+  ) { }
+  async verifySession(token: string): Promise<boolean> {
+    try {
+      let res = true
+      const user = await UserModel.findOne({ 'token.value': token }, { token: 1, _id: 0 })
+      if (!user) throw CustomError.badRequest('User not found')
+      if (!user?.token?.exp) throw CustomError.badRequest('User not found')
+      if (user.token.exp * 1000 < Date.now()) {
+        res = false
+      }
+      return res
+    } catch (error) {
+      return false
+    }
+  }
   async login(loginUserDto: LoginUserDto): Promise<SessionUserEntity> {
     const { email, password } = loginUserDto
     try {
-      const user = await UserModel.findOne({ email })
+      const filterUser = { email }
+      const user = await UserModel.findOne(filterUser)
       if (!user) throw CustomError.badRequest('User not found')
       const isPasswordMatch = this.comparePassword(password, user.password)
       if (!isPasswordMatch) throw CustomError.badRequest('Password not match')
       const userEntity = UserMapper.userEntityFromObject(user)
       const token = await this.generateToken({ ...userEntity })
       if (!token) throw CustomError.badRequest('Token Failed')
+      const decodedToken = this.decodedToken(token!)
+      const updateToken = {
+        value:token,
+        iat: decodedToken.iat,
+        exp: decodedToken.exp,
+      }
+      UserModel.updateOne(filterUser, { $set: { token: updateToken } }).then()
       return SessionUserMapper.sessionUserEntityFromObject({ token, user })
     } catch (error) {
       if (error instanceof CustomError) {

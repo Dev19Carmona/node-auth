@@ -9,6 +9,9 @@ export class AuthRepositoryImpl implements AuthRepository{
   ) {
     
   }
+  verifySession(token: string): Promise<boolean> {
+    return this.authDatasource.verifySession(token)
+  }
   login(loginUserDto: LoginUserDto): Promise<SessionUserEntity> {
     return this.authDatasource.login(loginUserDto)
   }

@@ -12,6 +12,7 @@ export class AuthRoutes {
     const router = Router()
     router.post('/login', controller.loginUser)
     router.post('/register', controller.registerUser)
+    router.post('/verifySession/:token', controller.verifySession)
     router.get('/', [AuthMiddleware.validateJwt] ,controller.getUsers)
     return router
   }

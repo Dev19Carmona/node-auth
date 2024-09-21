@@ -16,4 +16,10 @@ export class GeneralFuncions {
       minutes: date.getMinutes()
     }
   }
+  static cleanDto = (dto: any) => Object.entries(dto).reduce((a: any, b: any, c: any) => {
+    if (b[1] || typeof b[1] === 'boolean') {
+      a[b[0]] = b[1]
+    }
+    return { ...a }
+  }, {})
 }

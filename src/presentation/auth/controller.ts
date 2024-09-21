@@ -3,7 +3,7 @@ import { CreateUserDto, LoginUserDto } from '../../domain/dtos'
 import { AuthRepository } from '../../domain/repositories'
 import { CustomError } from '../../domain/errors'
 import { UserModel } from '../../data/mongodb'
-import { LoginUser, RegisterUser } from '../../domain/use-cases'
+import { LoginUser, RegisterUser, VerifySession } from '../../domain/use-cases'
 
 export class AuthController {
   constructor(private readonly authRepository: AuthRepository) {}
@@ -39,6 +39,13 @@ export class AuthController {
           user: req.body.user,
         })
       )
+      .catch((err) => this.handleError(err, res))
+  }
+  verifySession = (req: Request, res: Response) => {
+    const token = req.params.token
+    new VerifySession(this.authRepository)
+      .execute(token)
+      .then((response) => res.json({ token: response }))
       .catch((err) => this.handleError(err, res))
   }
 }

@@ -13,6 +13,7 @@ export class CompanyRoutes {
     const controller = new CompanyController(companyRepository)
     const router = Router()
     router.post('/create', controller.createCompany)
+    router.get('/')
     return router
   }
 }
