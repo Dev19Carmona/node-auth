@@ -12,7 +12,7 @@ export class ProductRoutes {
     const productRepository = new ProductRepositoryImpl(productDataSource)
     const controller = new ProductController(productRepository)
     const router = Router()
-    router.use([AuthMiddleware.validateJwt])
+    // router.use([AuthMiddleware.validateJwt])
     router.get('/', controller.getProducts)
     router.post('/create', controller.createProduct)
     return router

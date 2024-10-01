@@ -12,7 +12,6 @@ export class CreateShopDto {
 
     static create(object: { [key: string]: any }): [string?, CreateShopDto?] {
         const {
-            name,
             contactInfo,
             locationInfo,
             products,
@@ -20,16 +19,16 @@ export class CreateShopDto {
             company
         } = object;
 
-        if (!name) return ['Name is required'];
+        if (!contactInfo?.name) return ['Name is required'];
 
         // Validar ContactInfo
         if (!contactInfo) return ['Contact information is required'];
-        if (!Array.isArray(contactInfo.phoneNumbers) || contactInfo.phoneNumbers.length === 0) {
-            return ['At least one phone number is required'];
-        }
-        for (const phone of contactInfo.phoneNumbers) {
-            if (!phone.number) return ['Phone number is required'];
-        }
+        // if (!Array.isArray(contactInfo.phoneNumbers) || contactInfo.phoneNumbers.length === 0) {
+        //     return ['At least one phone number is required'];
+        // }
+        // for (const phone of contactInfo.phoneNumbers) {
+        //     if (!phone.number) return ['Phone number is required'];
+        // }
 
         // Validar LocationInfo
         if (!locationInfo) return ['Location information is required'];
@@ -45,7 +44,7 @@ export class CreateShopDto {
         return [
             undefined,
             new CreateShopDto(
-                name,
+                contactInfo.name,
                 contactInfo,
                 locationInfo,
                 products || [],
