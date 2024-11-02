@@ -28,8 +28,6 @@ export class MongoProductDataSourceImpl implements ProductDataSource {
     async getProducts(filter?: FilterGetProductsDto | undefined): Promise<ProductEntity[]> {
         try {
             const products = await ProductModel.find(filter || {})
-            console.log({ length: products.length });
-
             return products.map(product => ProductEntity.fromObject(product))
         } catch (error) {
             if (error instanceof CustomError) {

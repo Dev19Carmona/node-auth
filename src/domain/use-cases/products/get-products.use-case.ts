@@ -11,6 +11,7 @@ export class GetProducts implements GetProductsUseCase {
         private readonly productRepository: ProductRepository,
       ) {}
     execute(filterGetProductsDto: FilterGetProductsDto): Promise<ProductEntity[]> {
+        
         return this.productRepository.getProducts(filterGetProductsDto)
     }
     

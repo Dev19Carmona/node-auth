@@ -8,7 +8,7 @@ const schema = new mongoose.Schema(
     locationInfo: { type: LocationInfo },
     products: { type: [String], ref: 'Product' }, //TODO Cambiar a ObjectId
     img: { type: String, default: 'no-image' },
-    company: { type: String }, //TODO Cambiar a ObjectId
+    company: { type: String, ref: 'Company' }, //TODO Cambiar a ObjectId
     isActive: { type: Boolean, default: true }
   },
   {
