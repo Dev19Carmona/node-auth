@@ -4,17 +4,22 @@ export interface FilterGetProducts {
 }
 export class FilterGetProductsDto {
     private constructor(
-        public name?: string,
-        public _id?: string
+        public companyId: string,
+        // public name?: string,
+        // public _id?: string
     ) {
 
     }
 
-    static create(object: { [key: string]: any }): [string?, FilterGetProducts?] {
-        const { name, _id } = object
+    static create(object: { [key: string]: any }): [string?, FilterGetProductsDto?] {
+        const { name, _id, user } = object
         const filter: FilterGetProducts = {}
         if (name) filter.name = name
         if (name) filter._id = _id
-        return [undefined, filter]
+        return [undefined, new FilterGetProductsDto(user.companyId, 
+            // filter.name, 
+            // filter._id
+        )
+        ]
     }
 }

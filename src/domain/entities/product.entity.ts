@@ -9,10 +9,9 @@ export class ProductEntity {
 
     }
    static fromObject(object: { [key: string]: any }): ProductEntity {
-        const { name, price, img } = object
-
+        const { name, price, img = '' } = object
         if (!name) throw CustomError.badRequest('El nombre del producto es requerido')
-        if (!price) throw CustomError.badRequest('El nombre del producto es requerido')
+        if (typeof price !== 'number') throw CustomError.badRequest('El precio del producto es requerido')
         return new ProductEntity(name, price, img)
     }
 }
