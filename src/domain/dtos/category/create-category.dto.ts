@@ -1,11 +1,12 @@
-export class CreateRoleDto {
+
+export class CreateCategoryDto {
     private constructor(
         public readonly name: string,
     ) {
 
     }
 
-    static create(object: { [key: string]: any }): [string?, CreateRoleDto?] {
+    static create(object: { [key: string]: any }): [string?, CreateCategoryDto?] {
         const {
             name,
         } = object
@@ -14,7 +15,7 @@ export class CreateRoleDto {
         if (!name) return ['Name is required'];
 
 
-        return [undefined, new CreateRoleDto(
+        return [undefined, new CreateCategoryDto(
             name,
         )];
     }

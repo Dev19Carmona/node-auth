@@ -6,3 +6,4 @@ export * from './models/shop.model'
 export * from './models/company.model'
 
 export * from './models/role.model'
+export * from './models/category.model'

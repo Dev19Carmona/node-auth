@@ -4,6 +4,7 @@ import { ProductRoutes } from "./product/route";
 import { ShopRoutes } from "./shop/routes";
 import { CompanyRoutes } from "./company/routes";
 import { RoleRoutes } from "./role/routes";
+import { CategoryRoutes } from "./categories/routes";
 
 export class AppRoutes {
   static get routes(): Router {
@@ -17,6 +18,7 @@ export class AppRoutes {
     router.use('/api/shop', ShopRoutes.routes)
     router.use('/api/company', CompanyRoutes.routes)
     router.use('/api/role', RoleRoutes.routes)
+    router.use('/api/category', CategoryRoutes.routes)
     return router
   }
 }

@@ -11,3 +11,6 @@ export * from './company/index'
 
 export * from './role/create-role.dto'
 export * from './role/update-role.dto'
+
+export * from './category/update-category.dto'
+export * from './category/create-category.dto'
